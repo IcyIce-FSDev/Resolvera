@@ -36,15 +36,20 @@ Resolvera is a powerful, self-hosted DNS management dashboard that simplifies ma
 **Get started in under 2 minutes:**
 
 ```bash
-# 1. Clone repository
-git clone https://github.com/IcyIce-FSDev/Resolvera.git
-cd resolvera
+# 1. Download required files
+mkdir resolvera && cd resolvera
+curl -O https://raw.githubusercontent.com/IcyIce-FSDev/Resolvera/main/compose.yaml
+curl -O https://raw.githubusercontent.com/IcyIce-FSDev/Resolvera/main/.env.example
 
 # 2. Configure environment
 cp .env.example .env
-# Edit .env and set all required secrets
-# Generate secrets: openssl rand -base64 32  (JWT_SECRET)
-#                  openssl rand -hex 16      (ENCRYPTION_KEY, PASSWORD_HASH_SECRET, ZONE_API_HASH_SECRET)
+nano .env  # Edit and set all required secrets
+
+# Generate secrets:
+openssl rand -base64 32  # JWT_SECRET
+openssl rand -hex 16     # ENCRYPTION_KEY
+openssl rand -hex 16     # PASSWORD_HASH_SECRET
+openssl rand -hex 16     # ZONE_API_HASH_SECRET
 
 # 3. Start with Docker Compose
 docker compose up -d
