@@ -27,12 +27,9 @@ http://localhost:3000/setup
 ```
 .docker/
 ├── README.md                    # This file
-├── QUICKSTART.md                # 5-minute quick start guide
-├── DOCKER_HUB.md                # Docker Hub publishing guide
 ├── docker-compose.yml           # Build from source
 ├── docker-compose.prebuilt.yml  # Use pre-built image from Docker Hub
 ├── Dockerfile                   # Multi-stage app container build
-├── .env.docker                  # Environment variables template
 ├── entrypoint.sh                # Container startup script
 └── scripts/
     └── build-and-push.sh        # Automated Docker Hub build/push
@@ -60,7 +57,7 @@ docker compose -f .docker/docker-compose.yml up -d
 Copy the template and customize:
 
 ```bash
-cp .docker/.env.docker .env
+cp .env.example .env
 ```
 
 **Required variables:**

@@ -51,19 +51,19 @@ We are committed to providing a welcoming and inspiring community for all. Pleas
 
 1. **Fork the repository**
    ```bash
-   # Visit https://gitea.stull-group.com/iceflier/resolvera
+   # Visit https://github.com/IcyIce-FSDev/Resolvera
    # Click "Fork" button
    ```
 
 2. **Clone your fork**
    ```bash
-   git clone https://gitea.stull-group.com/YOUR-USERNAME/resolvera.git
+   git clone https://github.com/YOUR-USERNAME/Resolvera.git
    cd resolvera
    ```
 
 3. **Add upstream remote**
    ```bash
-   git remote add upstream https://gitea.stull-group.com/iceflier/resolvera.git
+   git remote add upstream https://github.com/IcyIce-FSDev/Resolvera.git
    ```
 
 4. **Install dependencies**

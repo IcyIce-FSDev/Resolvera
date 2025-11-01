@@ -16,7 +16,7 @@ docker compose version
 ## Step 1: Clone Repository
 
 ```bash
-git clone https://gitea.stull-group.com/iceflier/resolvera.git
+git clone https://github.com/IcyIce-FSDev/Resolvera.git
 cd resolvera
 ```
 
@@ -24,7 +24,7 @@ cd resolvera
 
 ```bash
 # Copy the environment template
-cp .docker/.env.docker .env
+cp .env.example .env
 
 # Generate secrets (Linux/Mac)
 echo "JWT_SECRET=$(openssl rand -base64 32)" >> .env
@@ -159,7 +159,7 @@ docker compose -f .docker/docker-compose.yml logs
 ```
 
 **Common issues:**
-- Missing required environment variables (JWT_SECRET, ENCRYPTION_KEY, POSTGRES_PASSWORD)
+- Missing required environment variables (JWT_SECRET, ENCRYPTION_KEY, PASSWORD_HASH_SECRET, ZONE_API_HASH_SECRET, POSTGRES_PASSWORD)
 - Port 3000 already in use
 - Database connection failed
 
@@ -250,7 +250,7 @@ See [README.md](.docker/README.md) for detailed production setup.
 
 - **Documentation**: [/documents](../documents/)
 - **Full Docker Guide**: [.docker/README.md](README.md)
-- **Repository**: [Gitea](https://gitea.stull-group.com/iceflier/resolvera)
+- **Repository**: [GitHub](https://github.com/IcyIce-FSDev/Resolvera)
 
 ---
 

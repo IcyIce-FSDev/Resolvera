@@ -46,7 +46,7 @@ Complete guide for developing and extending Resolvera.
 
 ```bash
 # 1. Clone repository
-git clone https://gitea.stull-group.com/iceflier/resolvera.git
+git clone https://github.com/IcyIce-FSDev/Resolvera.git
 cd resolvera
 
 # 2. Install dependencies

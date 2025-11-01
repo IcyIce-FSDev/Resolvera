@@ -48,18 +48,16 @@ services:
 
       # Application Settings
       NODE_ENV: ${NODE_ENV:-production}
-      APP_PORT: ${APP_PORT:-3000}
 
       # Security (REQUIRED - generate with commands below)
       # Generate JWT_SECRET: openssl rand -base64 32
       # Generate ENCRYPTION_KEY: openssl rand -hex 16
+      # Generate PASSWORD_HASH_SECRET: openssl rand -hex 16
+      # Generate ZONE_API_HASH_SECRET: openssl rand -hex 16
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required - generate with: openssl rand -base64 32}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required (32 chars) - generate with: openssl rand -hex 16}
-
-      # Optional: Admin Auto-Creation (first run only)
-      # Leave ADMIN_PASSWORD empty to skip, or set to create admin automatically
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      PASSWORD_HASH_SECRET: ${PASSWORD_HASH_SECRET:?PASSWORD_HASH_SECRET is required (32 chars) - generate with: openssl rand -hex 16}
+      ZONE_API_HASH_SECRET: ${ZONE_API_HASH_SECRET:?ZONE_API_HASH_SECRET is required (32 chars) - generate with: openssl rand -hex 16}
 
       # Next.js Configuration
       NEXT_TELEMETRY_DISABLED: 1

@@ -89,8 +89,8 @@ Once pushed to Docker Hub, users can run Resolvera without building:
 
 ```bash
 # 1. Configure environment
-cp .docker/.env.docker .env
-# Edit .env with your secrets
+cp .env.example .env
+# Edit .env with your secrets (JWT_SECRET, ENCRYPTION_KEY, PASSWORD_HASH_SECRET, ZONE_API_HASH_SECRET, POSTGRES_PASSWORD)
 
 # 2. Start with pre-built image
 docker compose -f .docker/docker-compose.prebuilt.yml up -d
@@ -108,7 +108,9 @@ docker run -d \
   -p 3000:3000 \
   -e DATABASE_URL="postgresql://user:pass@host:5432/db" \
   -e JWT_SECRET="your-secret" \
-  -e ENCRYPTION_KEY="your-key" \
+  -e ENCRYPTION_KEY="your-key-32-chars" \
+  -e PASSWORD_HASH_SECRET="your-key-32-chars" \
+  -e ZONE_API_HASH_SECRET="your-key-32-chars" \
   icyicefsdev/resolvera:latest
 ```
 
@@ -331,8 +333,8 @@ docker push ghcr.io/icyicefsdev/resolvera:latest
 ## Support
 
 - **Docker Hub**: https://hub.docker.com/r/icyicefsdev/resolvera
-- **Repository**: https://gitea.stull-group.com/iceflier/resolvera
-- **Issues**: Report on git repository
+- **Repository**: https://github.com/IcyIce-FSDev/Resolvera
+- **Issues**: Report on GitHub repository
 
 ---
 

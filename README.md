@@ -35,7 +35,7 @@ Resolvera is a powerful, self-hosted DNS management dashboard that simplifies ma
 
 ```bash
 # 1. Clone repository
-git clone https://gitea.stull-group.com/iceflier/resolvera.git
+git clone https://github.com/IcyIce-FSDev/Resolvera.git
 cd resolvera
 
 # 2. Configure environment
@@ -68,7 +68,7 @@ docker compose up -d
 
 ```bash
 # 1. Clone and install
-git clone https://gitea.stull-group.com/iceflier/resolvera.git
+git clone https://github.com/IcyIce-FSDev/Resolvera.git
 cd resolvera
 npm install
 
@@ -318,7 +318,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 💬 Support
 
 - **Documentation**: [/documents](documents/)
-- **Repository**: [Gitea](https://gitea.stull-group.com/iceflier/resolvera)
+- **Repository**: [GitHub](https://github.com/IcyIce-FSDev/Resolvera)
 - **Cloudflare API**: [Docs](https://developers.cloudflare.com/api)
 
 ---
