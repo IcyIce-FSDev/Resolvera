@@ -29,6 +29,8 @@ cp .docker/.env.docker .env
 # Generate secrets (Linux/Mac)
 echo "JWT_SECRET=$(openssl rand -base64 32)" >> .env
 echo "ENCRYPTION_KEY=$(openssl rand -hex 16)" >> .env
+echo "PASSWORD_HASH_SECRET=$(openssl rand -hex 16)" >> .env
+echo "ZONE_API_HASH_SECRET=$(openssl rand -hex 16)" >> .env
 ```
 
 **Or manually edit `.env`** and set:
