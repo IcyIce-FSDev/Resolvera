@@ -240,37 +240,16 @@ NODE_ENV=production
 
 ---
 
-## 📈 Roadmap
+## 🚧 Planned Features
 
-### v1.1.0 - Docker Containerization (Q1 2025)
-- Complete Docker setup
-- Docker Compose configuration
-- Multi-stage builds
-- Automated backups
+Features under consideration for future releases:
 
-### v1.2.0 - Enhanced Notifications (Q2 2025)
-- Email notifications (SMTP)
-- Slack webhooks
-- Telegram bot integration
-- Custom webhook templates
+- **Enhanced Notifications**: Email (SMTP), Slack, Telegram integration
+- **Advanced Security**: Two-factor authentication, API key management
+- **Power Features**: Bulk operations, import/export, DNS templates
+- **Nginx Integration**: Automated reverse proxy configuration, SSL/TLS management
 
-### v1.3.0 - Advanced Security (Q3 2025)
-- Two-factor authentication (TOTP)
-- API key management
-- Enhanced session management
-- Security policy configuration
-
-### v1.4.0 - Power Features (Q4 2025)
-- Bulk DNS operations
-- Import/Export configurations
-- DNS record templates
-- Historical data analytics
-
-### v2.0.0 - Nginx Integration (2026)
-- Automated reverse proxy configuration
-- SSL/TLS certificate management
-- Load balancer support
-- Configuration validation
+Want to contribute? Check our [Contributing Guide](documents/CONTRIBUTING.md)!
 
 ---
 
