@@ -29,7 +29,9 @@ Resolvera is a powerful, self-hosted DNS management dashboard that simplifies ma
 
 ## 📋 Quick Start
 
-### 🐳 Docker (Recommended)
+### 🐳 Docker Compose (Recommended)
+
+**Docker Compose is the easiest and recommended way to run Resolvera** - it automatically handles PostgreSQL setup, networking, and health checks.
 
 **Get started in under 2 minutes:**
 
@@ -51,9 +53,11 @@ docker compose up -d
 # 5. Create admin at http://localhost:3000/setup
 ```
 
-**Image**: `icyicefsdev/resolvera:latest` (pre-built from Docker Hub)
+**Uses pre-built image**: `icyicefsdev/resolvera:latest` from Docker Hub
 
 **[📖 Full Docker Guide](.docker/README.md)** | **[🚀 Quick Start Guide](documents/docker/QUICKSTART.md)**
+
+> 💡 **Why Docker Compose?** Automatically sets up PostgreSQL, manages networking between containers, handles database migrations, and includes health checks - all with a single command.
 
 ---
 
