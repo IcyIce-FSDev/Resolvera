@@ -1,0 +1,76 @@
+version: '3.8'
+
+# Docker Compose configuration using pre-built image from Docker Hub
+# This is faster than building locally and recommended for production
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: resolvera-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-resolvera}
+      POSTGRES_USER: ${POSTGRES_USER:-resolvera}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --auth-host=scram-sha-256"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - resolvera-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-resolvera} -d ${POSTGRES_DB:-resolvera}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Only expose to host if needed for external access
+    # ports:
+    #   - "5432:5432"
+
+  # Resolvera Application (Pre-built from Docker Hub)
+  app:
+    image: icyicefsdev/resolvera:latest
+    container_name: resolvera-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Database
+      DATABASE_URL: postgresql://${POSTGRES_USER:-resolvera}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-resolvera}
+
+      # Application
+      NODE_ENV: ${NODE_ENV:-production}
+
+      # Security (REQUIRED - generate these!)
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required}
+      PASSWORD_HASH_SECRET: ${PASSWORD_HASH_SECRET:?PASSWORD_HASH_SECRET is required}
+      ZONE_API_HASH_SECRET: ${ZONE_API_HASH_SECRET:?ZONE_API_HASH_SECRET is required}
+
+      # Next.js
+      NEXT_TELEMETRY_DISABLED: 1
+    ports:
+      - "${HOST_PORT:-3000}:3000"
+    volumes:
+      - app_data:/app/data
+    networks:
+      - resolvera-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+    name: resolvera_postgres_data
+  app_data:
+    name: resolvera_app_data
+
+networks:
+  resolvera-network:
+    name: resolvera-network
+    driver: bridge

@@ -1,0 +1,88 @@
+version: '3.8'
+
+# Resolvera Docker Compose
+# Simple setup using pre-built image from Docker Hub
+#
+# Quick Start:
+#   1. Copy .env.example to .env and configure your secrets
+#   2. Run: docker compose up -d
+#   3. Access: http://localhost:3000
+#   4. Setup admin: http://localhost:3000/setup
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: resolvera-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-resolvera}
+      POSTGRES_USER: ${POSTGRES_USER:-resolvera}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required - please set in .env file}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --auth-host=scram-sha-256"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - resolvera-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-resolvera} -d ${POSTGRES_DB:-resolvera}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Uncomment to expose PostgreSQL to host (not recommended for production)
+    # ports:
+    #   - "5432:5432"
+
+  # Resolvera Application
+  app:
+    image: icyicefsdev/resolvera:latest
+    container_name: resolvera-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Database Connection
+      DATABASE_URL: postgresql://${POSTGRES_USER:-resolvera}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-resolvera}
+
+      # Application Settings
+      NODE_ENV: ${NODE_ENV:-production}
+      APP_PORT: ${APP_PORT:-3000}
+
+      # Security (REQUIRED - generate with commands below)
+      # Generate JWT_SECRET: openssl rand -base64 32
+      # Generate ENCRYPTION_KEY: openssl rand -hex 16
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required - generate with: openssl rand -base64 32}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required (32 chars) - generate with: openssl rand -hex 16}
+
+      # Optional: Admin Auto-Creation (first run only)
+      # Leave ADMIN_PASSWORD empty to skip, or set to create admin automatically
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+
+      # Next.js Configuration
+      NEXT_TELEMETRY_DISABLED: 1
+    ports:
+      - "${HOST_PORT:-3000}:3000"
+    volumes:
+      - app_data:/app/data
+    networks:
+      - resolvera-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+    name: resolvera_postgres_data
+  app_data:
+    name: resolvera_app_data
+
+networks:
+  resolvera-network:
+    name: resolvera-network
+    driver: bridge

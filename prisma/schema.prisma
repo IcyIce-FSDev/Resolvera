@@ -1,0 +1,136 @@
+// Prisma schema for Resolvera DNS Management System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and authorization
+model User {
+  id              String   @id @default(cuid())
+  name            String
+  email           String   @unique
+  passwordHash    String
+  role            String   // "admin" or "user"
+  assignedZoneIds String[] // Array of zone IDs the user has access to
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+// Zone model for Cloudflare zone configurations
+model Zone {
+  id        String   @id @default(cuid())
+  zoneName  String   @unique
+  zoneId    String   @unique // Cloudflare zone ID
+  apiToken  String   // Encrypted API token
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  watchers Watcher[]
+
+  @@map("zones")
+}
+
+// Watcher model for IP monitoring and automatic DNS updates
+model Watcher {
+  id          String    @id @default(cuid())
+  recordName  String
+  recordType  String    // "A" or "AAAA"
+  zoneName    String
+  enabled     Boolean   @default(true)
+  status      String?   // "ok", "error", "updating"
+  lastChecked DateTime?
+  currentIP   String?
+  expectedIP  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  zone   Zone?   @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  zoneId String?
+
+  @@index([zoneName])
+  @@index([enabled])
+  @@map("watchers")
+}
+
+// Audit log model for tracking all system actions
+model AuditLog {
+  id         String   @id @default(cuid())
+  timestamp  DateTime @default(now())
+  action     String   // Action type (e.g., "dns.record.create", "user.login")
+  severity   String   // "info", "warning", "error"
+  ip         String?
+  userAgent  String?
+  resource   String?  // Resource type (e.g., "dns_record", "zone", "user")
+  resourceId String?  // ID of the resource being acted upon
+  details    Json?    // Additional details as JSON
+  success    Boolean  @default(true)
+
+  // Relations
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String?
+
+  @@index([timestamp])
+  @@index([action])
+  @@index([userId])
+  @@index([severity])
+  @@map("audit_logs")
+}
+
+// Watcher settings model for system-wide watcher configuration
+model WatcherSettings {
+  id                   String   @id @default(cuid())
+  checkIntervalMinutes Int      @default(5) // Check interval in minutes
+  autoUpdateEnabled    Boolean  @default(true) // Auto-update DNS records on mismatch
+  notifyOnMismatch     Boolean  @default(true) // Notify when IP mismatch detected
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("watcher_settings")
+}
+
+// User preferences model for UI preferences
+model UserPreferences {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  theme     String   @default("light") // "light" or "dark"
+  language  String   @default("en")
+  settings  Json?    // Additional user-specific settings as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_preferences")
+}
+
+// Notification settings model for system-wide notification configuration
+model NotificationSettings {
+  id                     String   @id @default(cuid())
+  // DNS Record notifications
+  dnsRecordAdd           Boolean  @default(true)
+  dnsRecordEdit          Boolean  @default(true)
+  dnsRecordDelete        Boolean  @default(true)
+  // Watcher notifications
+  watcherAdd             Boolean  @default(true)
+  watcherEdit            Boolean  @default(true)
+  watcherDelete          Boolean  @default(true)
+  watcherIpUpdateManual  Boolean  @default(true)
+  watcherIpUpdateAuto    Boolean  @default(true)
+  // Notification methods
+  discordWebhookEnabled  Boolean  @default(false)
+  discordWebhookUrl      String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  @@map("notification_settings")
+}
