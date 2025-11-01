@@ -37,6 +37,8 @@ echo "ZONE_API_HASH_SECRET=$(openssl rand -hex 16)" >> .env
 - `POSTGRES_PASSWORD`: Strong database password
 - `JWT_SECRET`: 32+ character random string
 - `ENCRYPTION_KEY`: Exactly 32 characters
+- `PASSWORD_HASH_SECRET`: Exactly 32 characters
+- `ZONE_API_HASH_SECRET`: Exactly 32 characters
 
 ## Step 3: Start Services
 
