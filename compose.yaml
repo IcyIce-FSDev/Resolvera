@@ -18,7 +18,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-resolvera}
       POSTGRES_USER: ${POSTGRES_USER:-resolvera}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required - please set in .env file}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --auth-host=scram-sha-256"
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -54,10 +54,10 @@ services:
       # Generate ENCRYPTION_KEY: openssl rand -hex 16
       # Generate PASSWORD_HASH_SECRET: openssl rand -hex 16
       # Generate ZONE_API_HASH_SECRET: openssl rand -hex 16
-      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required - generate with: openssl rand -base64 32}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required (32 chars) - generate with: openssl rand -hex 16}
-      PASSWORD_HASH_SECRET: ${PASSWORD_HASH_SECRET:?PASSWORD_HASH_SECRET is required (32 chars) - generate with: openssl rand -hex 16}
-      ZONE_API_HASH_SECRET: ${ZONE_API_HASH_SECRET:?ZONE_API_HASH_SECRET is required (32 chars) - generate with: openssl rand -hex 16}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required}
+      PASSWORD_HASH_SECRET: ${PASSWORD_HASH_SECRET:?PASSWORD_HASH_SECRET is required}
+      ZONE_API_HASH_SECRET: ${ZONE_API_HASH_SECRET:?ZONE_API_HASH_SECRET is required}
 
       # Next.js Configuration
       NEXT_TELEMETRY_DISABLED: 1
