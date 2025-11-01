@@ -213,30 +213,31 @@ NODE_ENV=production
 
 ---
 
-## 🚀 What's New in v1.0.0
+## ✨ Key Features
 
-**Major Features**:
+**Production-Ready Features**:
 - ✅ PostgreSQL database with Prisma ORM
-- ✅ Automated background IP watcher with cron scheduling
-- ✅ Searchable and filterable audit logs
+- ✅ Automated IP watcher with background monitoring
+- ✅ Searchable audit logs with filtering
 - ✅ Discord webhook notifications
 - ✅ Role-based access control (Admin & User)
 - ✅ Zone assignment for users
-- ✅ Cache management system
-- ✅ Comprehensive security hardening
-- ✅ Complete documentation
+- ✅ Docker Compose deployment
+- ✅ Complete security hardening
+- ✅ Comprehensive documentation
 
-**Performance**:
+**Performance & Reliability**:
 - Optimized database queries with indexes
-- Efficient audit logging (status change detection)
-- In-memory caching for API responses
-- Pagination for large datasets
+- In-memory caching for Cloudflare API
+- Efficient audit logging
+- Health checks and auto-restart
+- Database migrations
 
 **Developer Experience**:
 - Full TypeScript support
 - Comprehensive error handling
-- API documentation
-- Troubleshooting guides
+- Complete API documentation
+- Detailed troubleshooting guides
 
 ---
 
