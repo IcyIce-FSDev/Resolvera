@@ -53,7 +53,7 @@ docker compose up -d
 
 **Image**: `icyicefsdev/resolvera:latest` (pre-built from Docker Hub)
 
-**[📖 Full Docker Guide](.docker/README.md)** | **[🚀 Quick Start Guide](.docker/QUICKSTART.md)**
+**[📖 Full Docker Guide](.docker/README.md)** | **[🚀 Quick Start Guide](documents/docker/QUICKSTART.md)**
 
 ---
 
