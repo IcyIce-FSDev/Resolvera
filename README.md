@@ -176,11 +176,11 @@ NODE_ENV=production
 ## 📚 Documentation
 
 ### Core Documentation
-- **[API Reference](API.md)** - Complete REST API documentation
-- **[Architecture Guide](ARCHITECTURE.md)** - System design and structure
-- **[Development Guide](DEVELOPMENT.md)** - Setup and development workflow
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute
-- **[Troubleshooting](TROUBLESHOOTING.md)** - Common issues and solutions
+- **[API Reference](documents/API.md)** - Complete REST API documentation
+- **[Architecture Guide](documents/ARCHITECTURE.md)** - System design and structure
+- **[Development Guide](documents/DEVELOPMENT.md)** - Setup and development workflow
+- **[Contributing Guide](documents/CONTRIBUTING.md)** - How to contribute
+- **[Troubleshooting](documents/TROUBLESHOOTING.md)** - Common issues and solutions
 - **[Changelog](CHANGELOG.md)** - Version history
 
 ### Features
@@ -191,7 +191,7 @@ NODE_ENV=production
 
 ### Deployment
 - **[Docker Guide](.docker/README.md)** - Full Docker setup guide
-- **[Docker Quick Start](.docker/QUICKSTART.md)** - Get running in 5 minutes
+- **[Docker Quick Start](documents/docker/QUICKSTART.md)** - Get running in 5 minutes
 
 ---
 
