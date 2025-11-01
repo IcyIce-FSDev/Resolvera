@@ -314,7 +314,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎯 Production Ready
 
-Resolvera v1.0.0 is production-ready for self-hosted deployments with:
+Resolvera is production-ready for self-hosted deployments with:
 
 - ✅ Stable core features
 - ✅ Comprehensive security
@@ -322,7 +322,7 @@ Resolvera v1.0.0 is production-ready for self-hosted deployments with:
 - ✅ Error handling and logging
 - ✅ Performance optimizations
 - ✅ Database migrations
-- ✅ Docker support with Docker Compose
+- ✅ Docker Compose deployment
 
 ---
 
